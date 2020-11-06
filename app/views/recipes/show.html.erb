@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5">
+      <h3><%= @recipe.title %></h3>
+      <%= attachment_image_tag @recipe, :recipe_image, :fill, 200, 200 %>
+      <p>by 
+        <span><%= link_to root_path do %><%= @user.name %><% end %></span>
+      </p>
+    </div>
+    <div class="col-lg-7">
+      <div>
+        <h4>ひとこと</h4>
+        <p><%= @recipe.body %></p>
+      </div>
+      <div>
+        <h4>材料</h4>
+        <p><%= @recipe.material %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4>作り方</h4>
+  </div>
+  <div class="row">
+    <% if @recipe.user_id == current_user.id %>
+      <%= link_to 'レシピを書き換える', edit_recipe_path(@recipe.id) %>
+      <%= link_to 'レシピを削除する', recipe_path(@recipe.id), method: :delete %>
+    <% end %>
+  </div>
+</div>

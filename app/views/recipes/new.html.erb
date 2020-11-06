@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <% if @recipe.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @recipe.errors.count %>件のエラーが発生しました。</h2>
+        <ul>
+        <% @recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <h3>レシピを書く</h3>
+  </div>
+  <div class="row">
+    <%= form_with model: @recipe, local: true do |f| %>
+      <div class="col-lg-4">
+        <p>料理の写真</p>
+        <%= f.attachment_field :recipe_image %>
+      </div>
+      <div class="col-lg-8">
+        <p>レシピ名</p>
+        <%= f.text_field :title %>
+        <p>ひとこと</p>
+        <%= f.text_area :body %>
+        <p>材料</p>
+        <%= f.text_area :material %>
+        <p>作り方</p>
+        <%= f.submit 'レシピを公開する' %>
+      </div>
+    <% end %>
+  </div>
+</div>

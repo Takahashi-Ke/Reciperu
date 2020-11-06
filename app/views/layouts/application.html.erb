@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reciperu</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5">
+            <h1>Reciperu</h1>
+            <h6>一人暮らしをより楽しく<h6>
+          </div>
+          <div class="col-lg-7 nav">
+            <ul class="nav-list">
+              <% if user_signed_in? %>
+                <li><%= link_to 'トップページ', root_path %></li>
+                <li>
+                  <%= link_to root_path do %>
+                  マイページ（<%= current_user.name %>）
+                  <% end %>                
+                </li>
+                <li><%= link_to 'レシピを書く', new_recipe_path %></li>
+                <li><%= link_to 'レシピを見る', recipes_path %></li>
+                <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to 'ログイン', new_user_session_path %></li>
+                <li><%= link_to '新規登録', new_user_registration_path %></li>
+                <li></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <%= yield %>
+  </body>
+</html>

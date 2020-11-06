@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row index-title">
+    <h3>みんなのレシピ</h3>
+  </div>
+  <% @recipes.each do |recipe| %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= link_to recipe_path(recipe.id) do %>
+          <%= attachment_image_tag recipe, :recipe_image, :fill, 250, 250 %>
+        <% end %>
+      </div>
+      <div class="col-md-8">
+        <h4><%= recipe.title %></h4>
+        <p>by 
+          <span><%= link_to root_path do %><%= recipe.user.name %><% end %></span>
+        </p>
+        <p><%= recipe.body %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
