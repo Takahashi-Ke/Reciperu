@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <h3>プロフィールを書く</h3>
+  </div>
+
+  <div class="row">
+    <%= form_with model: @user, local: true do |f| %>
+      <div class="col-md-4">
+        <p>プロフィール画像</p>
+        <%= attachment_image_tag @user, :user_image, fallback: "no_image.png", class: "img_prev", style: "height: 250px; width:300px;" %><br>
+        <%= f.attachment_field :user_image %>
+      </div>
+      <div class="col-md-8">
+        <p>ニックネーム</p>
+        <%= f.text_field :name, size: 30 %>
+        <p>紹介文</p>
+        <%= f.text_area :introduction %>
+        
+        <%= f.submit '書き換える' %>
+      </div>
+    <% end %>
+  </div>
+</div>

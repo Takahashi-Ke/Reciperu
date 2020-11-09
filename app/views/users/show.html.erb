@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <%= attachment_image_tag @user, :user_image, :fill, 200, 200, fallback: "no_image.png" %>
+    </div>
+    <div class="col-md-8">
+      <h4><%= @user.name %> さんのページ</h4>
+      <table>
+        <tr>
+          <td>レシピ（<%= link_to "#{@recipes.count}", root_path %>）</td>
+          <td>コメント（<%= link_to "#{@comments.count}", root_path %>）</td>
+        </tr>
+      </table>
+      <%= @user.introduction %>
+      <% if @user.id == current_user.id %>
+        <%= link_to 'プロフィールを書き換える', edit_user_path(current_user.id) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h4>書いたレシピ</h4>
+    <%= render 'recipes/recipes_list', recipes: @recipes %>
+  </div>
+</div>

@@ -3,5 +3,24 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .index-title {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.recipe-item {
+    margin: 25px 0;
+    background-color: white;
+}
+
+.recipe_image {
+}
+
+.detail-image p {
+    padding-left: 120px;
+}
+
+.detail-text {
+    padding-top: 48px;
+}
+.detail-text p {
+    padding-left: 15px;
 }

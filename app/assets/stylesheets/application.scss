@@ -31,9 +31,8 @@ body {
  
 header {
   width: 100%;
+  padding-bottom: 20px;
  }
-
-
 
 .nav {
   display: inline-block;
@@ -44,8 +43,9 @@ header {
 }
  
 
-li {
+.nav-list li {
   list-style: none;
+  line-height: 70px;
   padding: 5px 10px;
 } 
 .main-visual {

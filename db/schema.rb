@@ -10,17 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_044123) do
+ActiveRecord::Schema.define(version: 2020_11_09_073818) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.integer "recipe_id"
+    t.string "ingredient"
+    t.string "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipe_steps", force: :cascade do |t|
+    t.integer "recipe_id"
+    t.text "step"
+    t.string "step_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
+  end
 
   create_table "recipes", force: :cascade do |t|
     t.string "title"
     t.text "body"
-    t.string "material"
     t.string "recipe_image_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "how_to"
   end
 
   create_table "users", force: :cascade do |t|

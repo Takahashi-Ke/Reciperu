@@ -15,17 +15,26 @@
   <div class="row">
     <%= form_with model: @recipe, local: true do |f| %>
       <div class="col-lg-4">
-        <p>料理の写真</p>
+        <h5>料理の写真</h5>
+        <%= attachment_image_tag @recipe, :recipe_image, fallback: "no_image.png", class: "img_prev", style: "height: 250px; width:300px;" %><br>
         <%= f.attachment_field :recipe_image %>
       </div>
       <div class="col-lg-8">
-        <p>レシピ名</p>
-        <%= f.text_field :title %>
-        <p>ひとこと</p>
-        <%= f.text_area :body %>
-        <p>材料</p>
-        <%= f.text_area :material %>
-        <p>作り方</p>
+        <h5>レシピ名</h5>
+        <%= f.text_field :title, size: 60, placeholder: "20文字以内で入力してください" %>
+        <h5>ひとこと</h5>
+        <%= f.text_area :body, size: "60x2" %>
+        <h5>材料</h5>
+        <%= f.fields_for :recipe_ingredient, @recipe.recipe_ingredients.build do |ingredient| %>
+          <%= ingredient.text_field :ingredient %>
+          <%= ingredient.text_field :quantity %>
+        <% end %>
+        <h5>作り方</h5>
+        <%= f.fields_for :recipe_step, @recipe.recipe_steps.build do |step| %>
+          <%= step.attachment_field :step_image %>
+          <%= step.text_area :step %>
+        <% end %>
+        
         <%= f.submit 'レシピを公開する' %>
       </div>
     <% end %>

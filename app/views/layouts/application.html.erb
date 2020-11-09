@@ -7,12 +7,13 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
   <body>
     <header>
       <div class="container">
         <div class="row">
-          <div class="col-lg-5">
+          <div class="col-lg-5 logo">
             <h1>Reciperu</h1>
             <h6>一人暮らしをより楽しく<h6>
           </div>
@@ -21,7 +22,7 @@
               <% if user_signed_in? %>
                 <li><%= link_to 'トップページ', root_path %></li>
                 <li>
-                  <%= link_to root_path do %>
+                  <%= link_to user_path(current_user.id) do %>
                   マイページ（<%= current_user.name %>）
                   <% end %>                
                 </li>

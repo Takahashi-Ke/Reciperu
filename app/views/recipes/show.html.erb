@@ -1,30 +1,63 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-5">
+    <div class="col-lg-5 detail-image">
       <h3><%= @recipe.title %></h3>
       <%= attachment_image_tag @recipe, :recipe_image, :fill, 200, 200 %>
       <p>by 
         <span><%= link_to root_path do %><%= @user.name %><% end %></span>
       </p>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-7 detail-text">
       <div>
         <h4>ひとこと</h4>
         <p><%= @recipe.body %></p>
       </div>
       <div>
         <h4>材料</h4>
-        <p><%= @recipe.material %></p>
+        <table>
+          <% @recipe.recipe_ingredients.each do |ingredient| %>
+            <tr>
+              <td><%= ingredient.ingredient %></td>
+              <td><%= ingredient.quantity %></td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>
   <div class="row">
     <h4>作り方</h4>
+    <% @recipe.recipe_steps.each do |step| %>
+      <%= step.step %>
+    <% end %>
   </div>
   <div class="row">
     <% if @recipe.user_id == current_user.id %>
       <%= link_to 'レシピを書き換える', edit_recipe_path(@recipe.id) %>
       <%= link_to 'レシピを削除する', recipe_path(@recipe.id), method: :delete %>
+    <% end %>
+  </div>
+  <div class="row">
+    <h3>コメント</h3>
+    <div class="cm-count">
+      <p>(<%=  @comments.count %>件)</p>
+    </div>
+    <% @comments.each do |comment| %>
+      <div class="row">
+        <%= attachment_image_tag comment.user, :user_image, :fill, 70, 70, fallback: "no_image.png" %>
+        <%= link_to "#{comment.user.name}", user_path(comment.user) %> 
+      </div>
+      <div class="row">
+        <%= comment.comment %>
+      </div>
+    <% end %>
+    <% if @recipe.user_id != current_user.id %>
+      <div class="row">
+        <%= form_with(model:[@recipe, @comment], local: true) do |f| %>
+          <%= f.text_area :comment %>
+          <%= f.submit 'コメントする' %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
