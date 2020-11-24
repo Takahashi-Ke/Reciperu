@@ -1,0 +1,63 @@
+  <%= nested_form_for recipe, local: true do |f| %>
+    <div class="row">
+      
+      <div class="col-lg-4">
+        <h5>料理の写真</h5>
+        <%= attachment_image_tag recipe, :recipe_image, fallback: "no_image.png", class: "img_prev", style: "height: 250px; width:300px;" %><br>
+        <%= f.attachment_field :recipe_image %>
+      </div>
+      
+      <div class="col-lg-8">
+        <h5>レシピ名</h5>
+        <%= f.text_field :title, size: 60, placeholder: "20文字以内で入力してください" %>
+        
+        <h5>ひとこと</h5>
+        <%= f.text_area :body, size: "60x2" %>
+        
+        <!--材料・分量の入力フォーム-->
+        <h5>材料・分量</h5>
+        <div class="ingredient-area">
+          <table>
+            <thead>
+              <tr>
+                <th>材料</th>
+                <th></th>
+                <th>分量</th>
+                <th></th>
+              </tr>
+            </thead>
+            <%= f.fields_for :recipe_ingredients do |ingredient| %>
+              <tbody>
+                <tr>
+                  <td><%= ingredient.text_field :ingredient, size: 35 %></td>
+                  <td> : </td>
+                  <td><%= ingredient.text_field :quantity %></td>
+                  <td><%= ingredient.link_to_remove "削除" %></td>
+                </tr>
+              </tbody>
+            <% end %>
+          </table>
+          <%= f.link_to_add "追加", :recipe_ingredients, data: { limit: 10 } %>
+        </div>
+        <!--ここまで-->
+        
+      </div>
+    </div>
+    
+    <div class="row">
+      
+      <!--作り方の入力フォーム-->
+      <h5>作り方</h5>
+      <%= f.fields_for :recipe_steps do |step| %>
+        <%= step.attachment_field :step_image %>
+        <%= step.text_area :step %>
+      <% end %>
+      <!--ここまで-->
+      
+      <% if recipe.new_record? %>
+        <%= f.submit 'レシピを公開する'%>
+      <% else %>
+        <%= f.submit 'レシピを書き換える' %>
+      <% end %>
+    </div>
+<% end %>

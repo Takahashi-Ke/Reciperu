@@ -18,6 +18,7 @@
           <% @recipe.recipe_ingredients.each do |ingredient| %>
             <tr>
               <td><%= ingredient.ingredient %></td>
+              <td>:</td>
               <td><%= ingredient.quantity %></td>
             </tr>
           <% end %>
@@ -40,7 +41,7 @@
   <div class="row">
     <h3>コメント</h3>
     <div class="cm-count">
-      <p>(<%=  @comments.count %>件)</p>
+      <p>(<%= @comments.count %>件)</p>
     </div>
     <% @comments.each do |comment| %>
       <div class="row">

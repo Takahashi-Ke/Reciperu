@@ -1,42 +1,7 @@
 <div class="container">
   <div class="row">
-    <% if @recipe.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= @recipe.errors.count %>件のエラーが発生しました。</h2>
-        <ul>
-        <% @recipe.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= render 'recipes/recipe_error_messages', recipe: @recipe %>
     <h3>レシピを書く</h3>
   </div>
-  <div class="row">
-    <%= form_with model: @recipe, local: true do |f| %>
-      <div class="col-lg-4">
-        <h5>料理の写真</h5>
-        <%= attachment_image_tag @recipe, :recipe_image, fallback: "no_image.png", class: "img_prev", style: "height: 250px; width:300px;" %><br>
-        <%= f.attachment_field :recipe_image %>
-      </div>
-      <div class="col-lg-8">
-        <h5>レシピ名</h5>
-        <%= f.text_field :title, size: 60, placeholder: "20文字以内で入力してください" %>
-        <h5>ひとこと</h5>
-        <%= f.text_area :body, size: "60x2" %>
-        <h5>材料</h5>
-        <%= f.fields_for :recipe_ingredient, @recipe.recipe_ingredients.build do |ingredient| %>
-          <%= ingredient.text_field :ingredient %>
-          <%= ingredient.text_field :quantity %>
-        <% end %>
-        <h5>作り方</h5>
-        <%= f.fields_for :recipe_step, @recipe.recipe_steps.build do |step| %>
-          <%= step.attachment_field :step_image %>
-          <%= step.text_area :step %>
-        <% end %>
-        
-        <%= f.submit 'レシピを公開する' %>
-      </div>
-    <% end %>
-  </div>
+    <%= render 'recipes/recipe_form', recipe: @recipe %>
 </div>

@@ -8,6 +8,7 @@
 
 .recipe-item {
     margin: 25px 0;
+    padding-left: 50px;
     background-color: white;
 }
 
@@ -23,4 +24,57 @@
 }
 .detail-text p {
     padding-left: 15px;
+}
+
+.add-form-btn {
+    padding-left: 100px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+#tab-menu {
+  display: flex;
+}
+
+#tab-menu li {
+  list-style-type: none;
+  width: 25%;
+}
+
+#tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #000;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#tab-contents p {
+  color: #000;
+  line-height: 2.5;
 }

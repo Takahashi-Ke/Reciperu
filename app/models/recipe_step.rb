@@ -4,4 +4,6 @@ class RecipeStep < ApplicationRecord
   
   attachment :step_image
   
+  validates :step, presence: true, length: {maximum: 120}
+  
 end

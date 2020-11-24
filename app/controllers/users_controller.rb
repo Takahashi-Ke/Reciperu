@@ -2,8 +2,10 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @recipes = Recipe.where(user_id: @user.id)
+    @myRecipes = Recipe.where(user_id: @user.id)
+    @recipes=@myRecipes.page(params[:page]).reverse_order
     @comments = Comment.where(user_id: @user.id)
+    @recipe = Recipe.new
   end
   
   def edit

@@ -7,20 +7,17 @@ class RecipesController < ApplicationController
   end
   
   def create
-    recipe = Recipe.new(recipe_params)
-    recipe.user_id = current_user.id
-    if recipe.save
-      redirect_to recipe_path(recipe)
+    @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = current_user.id
+    if @recipe.save
+      redirect_to recipe_path(@recipe)
     else
-      @recipe = Recipe.new
-      @recipe.recipe_ingredients.build
-      @recipe.recipe_steps.build
       render :new
     end
   end
   
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.page(params[:page]).reverse_order
   end
   
   def show
@@ -31,6 +28,18 @@ class RecipesController < ApplicationController
   end
   
   def edit
+    @recipe = Recipe.find(params[:id])
+    @recipe.recipe_ingredients.build
+    @recipe.recipe_steps.build
+  end
+  
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      redirect_to recipe_path(@recipe)
+    else
+      render :edit
+    end
   end
   
   def destroy

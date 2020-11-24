@@ -14,9 +14,13 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery
+//= require jquery_nested_form
 //= require bootstrap-sprockets
 //= require_tree .
 
+/* global $*/
+
+// 投稿画像プレビュー
 $(document).on("turbolinks:load", function(){
   function readURL(input) {
     if(input.files && input.files[0]){
@@ -34,4 +38,45 @@ $(document).on("turbolinks:load", function(){
     readURL(this);
   });
 });
+
+// フォームの数指定
+$(function() {
+  $(document).on('nested:fieldAdded', function(e) {
+    var link = $(e.currentTarget.activeElement);
+    if (!link.data('limit')) {
+      return;
+    }
+    if (link.siblings('.fields:visible').length >= link.data('limit')) {
+      link.hide();
+    }
+  });
+
+  $(document).on('nested:fieldRemoved', function(e) {
+    var link = $(e.target).siblings('a.add_nested_fields');
+    if (!link.data('limit')) {
+      return;
+    }
+    if (link.siblings('.fields:visible').length < link.data('limit')) {
+      link.show();
+    }
+  });
+})
+
+
+
+// タブメニュー切り替え
+$(document).on("turbolinks:load", function(){
+  $('#tab-contents .tab[id != "tab1"]').hide();
+});
+$(document).on("turbolinks:load", function(){
+  $('#tab-menu a').on('click', function(event) {
+    $("#tab-contents .tab").hide();
+    $("#tab-menu .active").removeClass("active");
+    $(this).addClass("active");
+    $($(this).attr("href")).show();
+    event.preventDefault();
+  });
+  
+});
+
 

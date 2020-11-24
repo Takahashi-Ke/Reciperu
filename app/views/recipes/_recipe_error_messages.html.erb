@@ -1,0 +1,10 @@
+  <% if recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= recipe.errors.count %>件の入力エラーがあります</h2>
+      <ul>
+        <% recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
